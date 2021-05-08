@@ -15,18 +15,25 @@ export class UserService {
     const user = JSON.parse(sessionStorage.getItem("user"))
     return user.username
   }
+  get wholeInfo(): IUser {
+    return JSON.parse(sessionStorage.getItem("user"))
+  }
   constructor(private http: HttpClient) { }
 
   login(body: Object): Observable<IUser> {
-    return this.http.post<IUser>(`${apiURL}/login`, body, {withCredentials: true}).pipe(
-      tap(x=> sessionStorage.setItem("user", JSON.stringify(x)))
+    return this.http.post<IUser>(`${apiURL}/login`, body, { withCredentials: true }).pipe(
+      tap(x => sessionStorage.setItem("user", JSON.stringify(x)))
     )
   }
   register(body: Object): Observable<IUser> {
-    return this.http.post<IUser>(`${apiURL}/register`, body, {withCredentials: true}).pipe(
-      tap(x=> sessionStorage.setItem("user", JSON.stringify(x))))
+    return this.http.post<IUser>(`${apiURL}/register`, body, { withCredentials: true }).pipe(
+      tap(x => sessionStorage.setItem("user", JSON.stringify(x))))
   }
   logout(): void {
     sessionStorage.removeItem("user")
+  }
+  editUser(body): Observable<IUser> {
+    return this.http.put<IUser>(`${apiURL}/users/profile`, body, { withCredentials: true }).pipe(
+      tap(x => sessionStorage.setItem("user", JSON.stringify(x))))
   }
 }
