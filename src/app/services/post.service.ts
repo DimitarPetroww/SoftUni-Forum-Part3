@@ -11,6 +11,6 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   loadPosts(): Observable<IPost[]> {
-    return this.http.get<IPost[]>(`${apiURL}/posts?limit=5`)
+    return this.http.get<IPost[]>(`${apiURL}/posts?limit=5`, {withCredentials: true})
   }
 }

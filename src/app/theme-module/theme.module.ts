@@ -5,13 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddThemeComponent } from './add-theme/add-theme.component';
 import { DetailsComponent } from './details/details.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ThemeComponent, AddThemeComponent, DetailsComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [ThemeComponent, AddThemeComponent, DetailsComponent]
 })

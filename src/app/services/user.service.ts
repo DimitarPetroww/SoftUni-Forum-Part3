@@ -1,19 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { IUser } from '../interfaces/user';
+const apiURL = environment.apiURL
 
 @Injectable()
 export class UserService {
   get isLogged(): boolean {
-    return !!localStorage.getItem("isLogged")
+    return !!sessionStorage.getItem("user")
   }
-  constructor() { }
+  get username(): string {
+    const user = JSON.parse(sessionStorage.getItem("user"))
+    return user.username
+  }
+  constructor(private http: HttpClient) { }
 
-  login(): void {
-    localStorage.setItem("isLogged", "true")
+  login(body: Object): Observable<IUser> {
+    return this.http.post<IUser>(`${apiURL}/login`, body, {withCredentials: true}).pipe(
+      tap(x=> sessionStorage.setItem("user", JSON.stringify(x)))
+    )
   }
-  register(): void {
-    localStorage.setItem("isLogged", "true")
+  register(body: Object): Observable<IUser> {
+    return this.http.post<IUser>(`${apiURL}/register`, body, {withCredentials: true}).pipe(
+      tap(x=> sessionStorage.setItem("user", JSON.stringify(x))))
   }
   logout(): void {
-    localStorage.removeItem("isLogged")
+    sessionStorage.removeItem("user")
   }
 }

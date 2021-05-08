@@ -3,30 +3,30 @@
         <div class="header-background">
             <span>New Theme</span>
         </div>
-        <form>
+        <form #f="ngForm" (ngSubmit)="submitHandler(f.value)">
             <div class="new-theme-title">
                 <label for="themeName">Title <span class="red">*</span></label>
-                <input type="text" name="themeName" id="themeName">
-                <!-- <p class="error">
+                <input type="text" name="themeName" id="themeName" ngModel #theme="ngModel" required minlength="5" [class.input-error]="theme.touched && theme.errors">
+                <p class="error" *ngIf="theme.touched && theme.errors?.required">
                     Theme name is required.
                 </p>
-                <p class="error">
+                <p class="error" *ngIf="theme.touched && theme.errors?.minlength">
                     Theme name must be at least 5 characters long.
-                </p> -->
+                </p>
             </div>
             <div class="new-theme-content">
                 <label for="postText">Post <span class="red">*</span></label>
-                <textarea type="text" name="postText" id="postText" rows="8" class="height"></textarea>
-                <!-- <p class="error">
+                <textarea type="text" name="postText" id="postText" rows="8" class="height" ngModel #text="ngModel" required minlength="10" [class.input-error]="text.touched && text.errors"></textarea>
+                <p class="error"  *ngIf="text.touched && text.errors?.required">
                     The field with your post is required.
                 </p>
-                <p class="error">
+                <p class="error" *ngIf="text.touched && text.errors?.minlength">
                     Post must be at least 10 characters long.
-                </p> -->
+                </p>
             </div>
             <div class="new-theme-buttons">
-                <button class="cancel">Cancel</button>
-                <button class="public">Post</button>
+                <button class="cancel" type="button" (click)="cancelHandler(f)">Cancel</button>
+                <button class="public" [disabled]="f.invalid">Post</button>
             </div>
 
         </form>

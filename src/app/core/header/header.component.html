@@ -16,7 +16,7 @@
         <div class="mini-navbar" *ngIf="isLogged">
             <ul>
                 <li>
-                    <a routerLink="/user/profile">Hello, Username</a>
+                    <a routerLink="/user/profile">Hello, {{username}}</a>
                 </li>
                 <li>
                     <a href="#" (click)="logoutHandler()">Logout</a>
@@ -32,7 +32,7 @@
             <li>
                 <a routerLink="/themes">Themes</a>
             </li>
-            <li>
+            <li *ngIf="isLogged">
                 <a routerLink="/add-theme">New Theme</a>
             </li>
         </ul>

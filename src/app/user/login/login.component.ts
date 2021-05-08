@@ -11,12 +11,18 @@ export class LoginComponent  {
   get isLogged(): boolean {
     return this.userService.isLogged
   }
-
   constructor(private userService: UserService, private router: Router) { }
 
-  loginHandler(): void {
-    this.userService.login()
-    this.router.navigate(["/themes"])
+  loginHandler(fV): void {
+    this.userService.login(fV).subscribe({
+      next: (x) => {
+        console.log(x);
+        this.router.navigate(["/themes"])
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
 }
