@@ -6,9 +6,10 @@ import { UserRoutingModule } from './user-routing.module';
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, ProfileComponent, ],
+  declarations: [RegisterComponent, LoginComponent, ProfileComponent, ProfileEditComponent ],
   imports: [
     CommonModule,
     RouterModule,

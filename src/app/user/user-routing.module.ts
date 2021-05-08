@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -28,6 +29,13 @@ const routes: Routes = [
               {
                 path: "profile",
                 component: ProfileComponent,
+                data: {
+                  isLogged: true
+                }
+              },
+              {
+                path: "edit",
+                component: ProfileEditComponent,
                 data: {
                   isLogged: true
                 }
