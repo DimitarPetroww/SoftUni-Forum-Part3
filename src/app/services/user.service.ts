@@ -31,6 +31,7 @@ export class UserService {
   }
   logout(): any {
     this.isLogged = false
+    this.user = undefined
     return this.http.post(`${apiURL}/logout`, {}, { withCredentials: true })
   }
   editUser(body): Observable<IUser> {
