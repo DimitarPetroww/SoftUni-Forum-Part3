@@ -9,9 +9,7 @@ const apiURL = environment.apiURL
 @Injectable()
 export class UserService {
   user: IUser
-  get isLogged(): boolean {
-    return !!sessionStorage.getItem("isLogged")
-  }
+  isLogged: boolean = false
   get username(): string {
     return this.user.username
   }
@@ -24,7 +22,7 @@ export class UserService {
     return this.http.post<IUser>(`${apiURL}/login`, body, { withCredentials: true }).pipe(
       tap(x => {
         this.user = x
-        sessionStorage.setItem("isLogged", "true")
+        this.isLogged = true
       })
     )
   }
@@ -32,12 +30,12 @@ export class UserService {
     return this.http.post<IUser>(`${apiURL}/register`, body, { withCredentials: true })
   }
   logout(): any {
-    sessionStorage.removeItem("isLogged")
+    this.isLogged = false
     return this.http.post(`${apiURL}/logout`, {}, { withCredentials: true })
   }
   editUser(body): Observable<IUser> {
     return this.http.put<IUser>(`${apiURL}/users/profile`, body, { withCredentials: true }).pipe(
-      tap(x=> this.user = x)
+      tap(x => this.user = x)
     )
   }
 }
