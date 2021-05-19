@@ -16,7 +16,6 @@ export class LoginComponent  {
   loginHandler(fV): void {
     this.userService.login(fV).subscribe({
       next: (x) => {
-        console.log(x);
         this.router.navigate(["/themes"])
       },
       error: (error) => {
